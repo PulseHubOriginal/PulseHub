@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UguzScripts - Roblox Script Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* Sol Üst Başlık */
+        header {
+            max-width: 800px;
+            margin: 10px auto 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .site-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #58a6ff;
+            text-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Script Listesi Kapsayıcısı */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Script Baloncuğu / Kartı */
+        .script-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .script-card:hover {
+            border-color: #58a6ff;
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .script-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f0f6fc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Key / No Key Etiketleri */
+        .badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge-nokey {
+            background: rgba(46, 160, 67, 0.15);
+            color: #3fb950;
+            border: 1px solid rgba(63, 185, 80, 0.3);
+        }
+
+        .badge-key {
+            background: rgba(210, 153, 34, 0.15);
+            color: #d29922;
+            border: 1px solid rgba(210, 153, 34, 0.3);
+        }
+
+        /* Script Kod Kutusu */
+        .code-box {
+            background-color: #0d1117;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 50px;
+            background: transparent;
+            border: none;
+            color: #7ee787;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 13px;
+            resize: none;
+            outline: none;
+        }
+
+        /* Kopyala Butonu */
+        .btn-copy {
+            background-color: #21262d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn-copy:hover {
+            background-color: #30363d;
+            color: #ffffff;
+            border-color: #8b949e;
+        }
+
+        .btn-copy.copied {
+            background-color: #238636 !important;
+            color: #ffffff !important;
+            border-color: #2ea043 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="site-title">
+            <i class="fa-solid fa-code"></i> UguzScripts
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- KdmlScript -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">KdmlScript</div>
+                <span class="badge badge-nokey">No Key</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Kdml.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Kopyala
+            </button>
+        </div>
+
+        <!-- KuniHub -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">KuniHub</div>
+                <span class="badge badge-nokey">No Key</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Kunihub.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Kopyala
+            </button>
+        </div>
+
+        <!-- PulseHub -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">PulseHub</div>
+                <span class="badge badge-nokey">No Key</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Mm2.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Kopyala
+            </button>
+        </div>
+
+        <!-- Moondiety (KEYLİ) -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">Moondiety</div>
+                <span class="badge badge-key"><i class="fa-solid fa-key"></i> Key System</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Moondiety.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Kopyala
+            </button>
+        </div>
+
+        <!-- Riftware -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">Riftware</div>
+                <span class="badge badge-nokey">No Key</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Riftware.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Kopyala
+            </button>
+        </div>
+
+        <!-- Foxname -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">Foxname</div>
+                <span class="badge badge-nokey">No Key</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Foxname.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Kopyala
+            </button>
+        </div>
+
+        <!-- ForgeHub (KEYLİ) -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">ForgeHub</div>
+                <span class="badge badge-key"><i class="fa-solid fa-key"></i> Key System</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/ForgeHub.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Kopyala
+            </button>
+        </div>
+
+        <!-- Sorlua (KEYLİ) -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">Sorlua</div>
+                <span class="badge badge-key"><i class="fa-solid fa-key"></i> Key System</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Sorlua.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Kopyala
+            </button>
+        </div>
+
+        <!-- Unlock All Weapons -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">Unlock All Weapons</div>
+                <span class="badge badge-nokey">No Key</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/UnlockAll.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Kopyala
+            </button>
+        </div>
+
+        <!-- Weapon Spawner -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">Weapon Spawner</div>
+                <span class="badge badge-nokey">No Key</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/WeaponSpawner.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Kopyala
+            </button>
+        </div>
+
+        <!-- Yarhm -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">Yarhm</div>
+                <span class="badge badge-nokey">No Key</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Yarhm.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Kopyala
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        function kopyala(btn) {
+            let textarea = btn.previousElementSibling.querySelector('textarea');
+            textarea.select();
+            navigator.clipboard.writeText(textarea.value);
+
+            btn.classList.add('copied');
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Kopyalandı!';
+
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.innerHTML = '<i class="fa-regular fa-copy"></i> Kopyala';
+            }, 2000);
+        }
+    </script>
+
+</body>
+  </html>
+
