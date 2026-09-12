@@ -3,120 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PulseHub MM2 - UguzScripts</title>
+    <title>UguzScripts - Roblox Script Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-color: #0b0e14;
-            --card-bg: rgba(18, 24, 38, 0.85);
-            --border-color: rgba(56, 139, 253, 0.2);
-            --accent-blue: #58a6ff;
-            --accent-green: #2ea043;
-            --text-main: #f0f6fc;
-            --text-sub: #8b949e;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 50% 0%, rgba(88, 166, 255, 0.1) 0%, transparent 60%);
-            color: var(--text-main);
-            padding: 40px 20px;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            padding: 20px;
             min-height: 100vh;
         }
 
         header {
-            max-width: 1000px;
-            margin: 0 auto 30px auto;
+            max-width: 800px;
+            margin: 10px auto 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
         }
 
         .site-title {
             font-size: 28px;
             font-weight: 800;
-            color: var(--accent-blue);
+            color: #58a6ff;
+            text-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
             display: flex;
             align-items: center;
             gap: 10px;
-            text-decoration: none;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
-        }
-
-        .script-detail-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 24px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .script-detail-card {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .image-container {
-            width: 100%;
-            height: 100%;
-            min-height: 250px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            background: #161b22;
-        }
-
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .info-container {
             display: flex;
             flex-direction: column;
+            gap: 20px;
+        }
+
+        .script-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .script-card:hover {
+            border-color: #58a6ff;
+            transform: translateY(-2px);
+        }
+
+        /* Top 1 Özel Kart Parıltısı */
+        .script-card.top1-card {
+            border: 1px solid #d29922;
+            box-shadow: 0 0 15px rgba(210, 153, 34, 0.2);
+        }
+
+        .script-card.top1-card:hover {
+            border-color: #f1e05a;
+            box-shadow: 0 0 25px rgba(241, 224, 90, 0.4);
+        }
+
+        .card-header {
+            display: flex;
             justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .script-header {
-            margin-bottom: 15px;
-        }
-
-        .script-title {
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 10px;
+        .script-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f0f6fc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .badge-group {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
         }
 
         .badge {
             font-size: 11px;
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
-            font-weight: 700;
+            font-weight: bold;
             text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .badge-nokey {
@@ -125,18 +112,32 @@
             border: 1px solid rgba(63, 185, 80, 0.3);
         }
 
-        .badge-game {
+        .badge-key {
+            background: rgba(210, 153, 34, 0.15);
+            color: #d29922;
+            border: 1px solid rgba(210, 153, 34, 0.3);
+        }
+
+        /* Top Rozetleri */
+        .badge-top1 {
+            background: rgba(241, 224, 90, 0.2);
+            color: #f1e05a;
+            border: 1px solid #f1e05a;
+            font-size: 12px;
+        }
+
+        .badge-top {
             background: rgba(88, 166, 255, 0.15);
-            color: var(--accent-blue);
+            color: #58a6ff;
             border: 1px solid rgba(88, 166, 255, 0.3);
         }
 
         .code-box {
-            background-color: rgba(8, 11, 16, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 12px;
-            margin: 15px 0;
+            background-color: #0d1117;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 12px;
         }
 
         textarea {
@@ -145,133 +146,205 @@
             background: transparent;
             border: none;
             color: #7ee787;
-            font-family: 'Consolas', monospace;
+            font-family: 'Consolas', 'Courier New', monospace;
             font-size: 13px;
             resize: none;
             outline: none;
         }
 
         .btn-copy {
-            background: var(--accent-blue);
-            color: #0d1117;
-            border: none;
-            padding: 14px 20px;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 800;
+            background-color: #21262d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
+            transition: all 0.2s;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             width: 100%;
         }
 
         .btn-copy:hover {
-            box-shadow: 0 0 20px rgba(88, 166, 255, 0.5);
-            transform: translateY(-2px);
+            background-color: #30363d;
+            color: #ffffff;
+            border-color: #8b949e;
         }
 
         .btn-copy.copied {
-            background: var(--accent-green) !important;
-            color: #fff !important;
-            box-shadow: 0 0 20px rgba(46, 160, 67, 0.5) !important;
-        }
-
-        .description-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 24px;
-            backdrop-filter: blur(12px);
-        }
-
-        .description-card h2 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: var(--accent-blue);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .features-list {
-            list-style: none;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .features-list li {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .features-list li i {
-            color: var(--accent-blue);
+            background-color: #238636 !important;
+            color: #ffffff !important;
+            border-color: #2ea043 !important;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" class="site-title">
+        <div class="site-title">
             <i class="fa-solid fa-code"></i> UguzScripts
-        </a>
+        </div>
     </header>
 
     <div class="container">
 
-        <div class="script-detail-card">
-            <div class="image-container">
-                <img src="https://images.rbxcdn.com/f04c648ecbc794f31c5ee918076beae8" alt="PulseHub MM2 Script">
-            </div>
-
-            <div class="info-container">
-                <div>
-                    <div class="script-header">
-                        <h1 class="script-title">PulseHub MM2</h1>
-                        <div class="badge-group">
-                            <span class="badge badge-nokey">No Key</span>
-                            <span class="badge badge-game">Murder Mystery 2</span>
-                        </div>
-                    </div>
-
-                    <div class="code-box">
-                        <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Mm2.lua"))()</textarea>
-                    </div>
+        <!-- TOP 1: Bloxluck Predictor -->
+        <div class="script-card top1-card">
+            <div class="card-header">
+                <div class="script-name">Bloxluck Predictor download link retrieval script.</div>
+                <div class="badge-group">
+                    <span class="badge badge-top1"><i class="fa-solid fa-crown"></i> Top 1</span>
+                    <span class="badge badge-nokey">No Key</span>
                 </div>
-
-                <button class="btn-copy" onclick="kopyala(this)">
-                    <i class="fa-regular fa-copy"></i> Copy Script
-                </button>
             </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/bloxluckop.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Copy
+            </button>
         </div>
 
-        <div class="description-card">
-            <h2><i class="fa-solid fa-list-check"></i> Script Features</h2>
-            <p style="color: var(--text-sub); font-size: 14px; line-height: 1.6;">
-                PulseHub MM2 is one of the best scripts available for Roblox Murder Mystery 2. Fully optimized, keyless, and includes advanced automation features for farming and ESP.
-            </p>
+        <!-- TOP 2: PulseHub -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">PulseHub</div>
+                <div class="badge-group">
+                    <span class="badge badge-top">Top 2</span>
+                    <span class="badge badge-nokey">No Key</span>
+                </div>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/PulseHub.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Copy
+            </button>
+        </div>
 
-            <ul class="features-list">
-                <li><i class="fa-solid fa-check"></i> Auto Farm Coins</li>
-                <li><i class="fa-solid fa-check"></i> Player ESP & Roles</li>
-                <li><i class="fa-solid fa-check"></i> Silent Aim</li>
-                <li><i class="fa-solid fa-check"></i> Auto Gun Drop Grabber</li>
-                <li><i class="fa-solid fa-check"></i> Murderer / Sheriff Detector</li>
-                <li><i class="fa-solid fa-check"></i> Walkspeed & JumpPower Slider</li>
-                <li><i class="fa-solid fa-check"></i> Anti-AFK Included</li>
-                <li><i class="fa-solid fa-check"></i> Server Hop Options</li>
-            </ul>
+        <!-- TOP 3: KdmlScript -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">KdmlScript</div>
+                <div class="badge-group">
+                    <span class="badge badge-top">Top 3</span>
+                    <span class="badge badge-nokey">No Key</span>
+                </div>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Kdml.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Copy
+            </button>
+        </div>
+
+        <!-- TOP 4: Riftware -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">Riftware</div>
+                <div class="badge-group">
+                    <span class="badge badge-top">Top 4</span>
+                    <span class="badge badge-nokey">No Key</span>
+                </div>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Riftware.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Copy
+            </button>
+        </div>
+
+        <!-- TOP 5: Yarhm -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">Yarhm</div>
+                <div class="badge-group">
+                    <span class="badge badge-top">Top 5</span>
+                    <span class="badge badge-nokey">No Key</span>
+                </div>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Yarhm.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Copy
+            </button>
+        </div>
+
+        <!-- KuniHub -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">KuniHub</div>
+                <span class="badge badge-nokey">No Key</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Kunihub.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Copy
+            </button>
+        </div>
+
+        <!-- Moondiety -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">Moondiety</div>
+                <span class="badge badge-key"><i class="fa-solid fa-key"></i> Key System</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Moondiety.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Copy
+            </button>
+        </div>
+
+        <!-- Sorlua -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">Sorlua</div>
+                <span class="badge badge-key"><i class="fa-solid fa-key"></i> Key System</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Sorlua.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Copy
+            </button>
+        </div>
+
+        <!-- Unlock All Weapons -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">Unlock All Weapons</div>
+                <span class="badge badge-nokey">No Key</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/UnlockAll.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Copy
+            </button>
+        </div>
+
+        <!-- Weapon Spawner -->
+        <div class="script-card">
+            <div class="card-header">
+                <div class="script-name">Weapon Spawner</div>
+                <span class="badge badge-nokey">No Key</span>
+            </div>
+            <div class="code-box">
+                <textarea readonly>loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/WeaponSpawner.lua"))()</textarea>
+            </div>
+            <button class="btn-copy" onclick="kopyala(this)">
+                <i class="fa-regular fa-copy"></i> Copy
+            </button>
         </div>
 
     </div>
@@ -287,7 +360,7 @@
 
             setTimeout(() => {
                 btn.classList.remove('copied');
-                btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy Script';
+                btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
             }, 2000);
         }
     </script>
