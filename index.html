@@ -4,478 +4,436 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UguzScripts - Roblox Script Hub</title>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
             background-color: #0b0e14;
             color: #c9d1d9;
+            padding: 40px 20px;
             min-height: 100vh;
         }
 
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
+        header {
+            max-width: 900px;
+            margin: 0 auto 35px auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #1f242d;
         }
 
-        /* Top Ranks Glows */
-        .card-top1 {
-            border-color: rgba(241, 224, 90, 0.25);
-        }
-        .card-top1:hover {
-            border-color: #f1e05a;
-            box-shadow: 0 0 25px rgba(241, 224, 90, 0.15);
-        }
-
-        .card-top2 {
-            border-color: rgba(56, 189, 248, 0.25);
-        }
-        .card-top2:hover {
-            border-color: #38bdf8;
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.15);
+        .site-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #58a6ff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .card-top3 {
-            border-color: rgba(248, 81, 73, 0.25);
-        }
-        .card-top3:hover {
-            border-color: #f85149;
-            box-shadow: 0 0 25px rgba(248, 81, 73, 0.15);
-        }
-
-        /* Modal Overlay & Glassmorphism */
-        .modal-backdrop {
-            background-color: rgba(5, 7, 11, 0.75);
-            backdrop-filter: blur(8px);
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        .modal-content {
-            background: rgba(19, 23, 32, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Modal Animation */
-        .modal-enter {
-            opacity: 0;
-            transform: scale(0.95) translateY(10px);
-        }
-        .modal-enter-active {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .modal-exit {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-        }
-        .modal-exit-active {
-            opacity: 0;
-            transform: scale(0.95) translateY(10px);
-            transition: all 0.2s cubic-bezier(0.7, 0, 0.84, 0);
-        }
-
-        /* Custom Scrollbar inside modal */
-        .custom-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .custom-scroll::-webkit-scrollbar-track {
+        /* --- KART YAPISI --- */
+        .script-card {
             background: #131720;
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            border: 1px solid #212631;
+            transition: all 0.25s ease;
         }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background: #2b313e;
-            border-radius: 4px;
+
+        .script-card.top1-card { border-color: rgba(241, 224, 90, 0.4); }
+        .script-card.top1-card:hover { border-color: #f1e05a; box-shadow: 0 6px 24px rgba(241, 224, 90, 0.15); }
+
+        .script-card.top2-card { border-color: rgba(139, 148, 158, 0.4); }
+        .script-card.top2-card:hover { border-color: #58a6ff; box-shadow: 0 6px 24px rgba(88, 166, 255, 0.15); }
+
+        .script-card.top3-card { border-color: rgba(248, 81, 73, 0.4); }
+        .script-card.top3-card:hover { border-color: #f85149; box-shadow: 0 6px 24px rgba(248, 81, 73, 0.15); }
+
+        /* GÖRSEL ALANI */
+        .img-container {
+            width: 180px;
+            height: 115px;
+            flex-shrink: 0;
+            background-color: #080a0f;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #21262d;
+            cursor: pointer;
         }
-        .custom-scroll::-webkit-scrollbar-thumb:hover {
-            background: #3b4252;
+
+        .script-preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .script-card:hover .script-preview-img {
+            transform: scale(1.05);
+        }
+
+        /* İÇERİK */
+        .card-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .script-name {
+            font-size: 19px;
+            font-weight: 700;
+            color: #f0f6fc;
+        }
+
+        .badge-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .badge {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-nokey { background: rgba(46, 160, 67, 0.15); color: #3fb950; border: 1px solid rgba(63, 185, 80, 0.3); }
+        .badge-top1 { background: rgba(241, 224, 90, 0.15); color: #f1e05a; border: 1px solid rgba(241, 224, 90, 0.4); }
+        .badge-top2 { background: rgba(139, 148, 158, 0.15); color: #c9d1d9; border: 1px solid rgba(139, 148, 158, 0.4); }
+        .badge-top3 { background: rgba(248, 81, 73, 0.15); color: #f85149; border: 1px solid rgba(248, 81, 73, 0.4); }
+
+        /* BUTONLAR */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            background-color: #1f242d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover { background-color: #30363d; color: #fff; }
+
+        .btn-primary {
+            background-color: #238636;
+            color: #fff;
+            border-color: #2ea043;
+        }
+        .btn-primary:hover { background-color: #2ea043; }
+
+        .btn-primary.copied {
+            background-color: #38bdf8 !important;
+            border-color: #0284c7 !important;
+        }
+
+        /* --- POPUP (MODAL) STİLLERİ --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            transform: scale(0.9);
+            transition: transform 0.25s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #21262d;
+            padding-bottom: 10px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #58a6ff;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #8b949e;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .modal-close:hover { color: #f0f6fc; }
+
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #0d1117;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #21262d;
+            font-size: 14px;
+        }
+
+        .feature-item i { color: #3fb950; }
+
+        .loadstring-box {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #7ee787;
+            word-break: break-all;
+        }
+
+        @media (max-width: 650px) {
+            .script-card { flex-direction: column; align-items: stretch; }
+            .img-container { width: 100%; height: 160px; }
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-between p-4 sm:p-8">
+<body>
 
-    <header class="w-full max-w-4xl flex items-center justify-between pb-6 mb-8 border-b border-gray-800/80">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 text-xl shadow-[0_0_15px_rgba(56,189,248,0.2)]">
-                <i class="fa-solid fa-code"></i>
-            </div>
-            <div>
-                <h1 class="text-2xl font-extrabold text-white tracking-tight flex items-center gap-2">
-                    Uguz<span class="text-sky-400">Scripts</span>
-                </h1>
-                <p class="text-xs text-gray-400 font-medium">Roblox Executable Script Library</p>
-            </div>
-        </div>
-
-        <div class="flex items-center gap-3">
-            <span class="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                Status: Operational
-            </span>
+    <header>
+        <div class="site-title">
+            <i class="fa-solid fa-code"></i> UguzScripts
         </div>
     </header>
 
-    <main class="w-full max-w-4xl flex flex-col gap-5 mb-12">
+    <div class="container">
 
-        <!-- SCRIPT CARD 1: PulseHub -->
-        <div class="script-card card-top1 bg-[#131720] border rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row gap-5 items-center transition-all duration-300">
-            <!-- Thumbnail Image -->
-            <div class="relative w-full sm:w-56 h-36 sm:h-32 rounded-xl overflow-hidden bg-black/40 border border-gray-800 flex-shrink-0 group">
-                <img src="pulse.png" onerror="this.src='https://placehold.co/400x225/1a1f2c/38bdf8?text=PulseHub+Preview'" alt="PulseHub" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
-                <span class="absolute bottom-2 left-2 bg-black/70 backdrop-blur-md text-[10px] text-gray-300 px-2 py-0.5 rounded border border-white/10 font-mono">Multi-Game</span>
+        <!-- PulseHub -->
+        <div class="script-card top1-card">
+            <div class="img-container" onclick="openModal('pulse')">
+                <img src="pulse.png" alt="PulseHub" class="script-preview-img">
             </div>
-
-            <!-- Content Area -->
-            <div class="flex-1 w-full flex flex-col justify-between h-full gap-3">
-                <div class="flex items-center justify-between flex-wrap gap-2">
-                    <h2 class="text-xl font-bold text-white tracking-wide">PulseHub</h2>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 flex items-center gap-1">
-                            <i class="fa-solid fa-crown text-[10px]"></i> TOP 1
-                        </span>
-                        <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-400/15 border border-emerald-400/30 text-emerald-400 flex items-center gap-1">
-                            <i class="fa-solid fa-key text-[10px]"></i> NO KEY
-                        </span>
+            <div class="card-details">
+                <div class="card-header">
+                    <div class="script-name">PulseHub</div>
+                    <div class="badge-group">
+                        <span class="badge badge-top1"><i class="fa-solid fa-crown"></i> Top 1</span>
+                        <span class="badge badge-nokey">No Key</span>
                     </div>
                 </div>
 
-                <p class="text-xs text-gray-400 line-clamp-2">
-                    Feature-packed utility script featuring Auto Farm, Player ESP, Teleports, and Troll Fun scripts for multiple games.
-                </p>
-
-                <!-- Code Input & Actions -->
-                <div class="flex flex-col sm:flex-row items-center gap-2 pt-1">
-                    <div class="w-full flex-1 bg-[#090c10] border border-gray-800 rounded-lg px-3 py-2 flex items-center">
-                        <input readonly type="text" value="https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/PulseHub.lua" class="mono text-xs text-emerald-400 bg-transparent w-full outline-none select-all">
-                    </div>
-                    
-                    <div class="flex items-center gap-2 w-full sm:w-auto">
-                        <button onclick="kopyala(this, 'https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/PulseHub.lua')" class="flex-1 sm:flex-initial px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 hover:border-gray-600 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-2 active:scale-95">
-                            <i class="fa-regular fa-copy"></i>
-                            <span>Copy</span>
-                        </button>
-                        
-                        <button onclick="openModal('pulse')" class="flex-1 sm:flex-initial px-4 py-2 bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/40 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-2 active:scale-95">
-                            <i class="fa-solid fa-sliders"></i>
-                            <span>Features</span>
-                        </button>
-                    </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="copyLoadstring('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/PulseHub.lua\'))()', this)">
+                        <i class="fa-regular fa-copy"></i> Get Script (Loadstring)
+                    </button>
+                    <button class="btn" onclick="openModal('pulse')">
+                        <i class="fa-solid fa-list-check"></i> Features
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- SCRIPT CARD 2: KdmlScript -->
-        <div class="script-card card-top2 bg-[#131720] border rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row gap-5 items-center transition-all duration-300">
-            <!-- Thumbnail Image -->
-            <div class="relative w-full sm:w-56 h-36 sm:h-32 rounded-xl overflow-hidden bg-black/40 border border-gray-800 flex-shrink-0 group">
-                <img src="kdml.png" onerror="this.src='https://placehold.co/400x225/1a1f2c/38bdf8?text=KdmlScript+Preview'" alt="KdmlScript" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
-                <span class="absolute bottom-2 left-2 bg-black/70 backdrop-blur-md text-[10px] text-gray-300 px-2 py-0.5 rounded border border-white/10 font-mono">Murder Mystery / Games</span>
+        <!-- KdmlScript -->
+        <div class="script-card top2-card">
+            <div class="img-container" onclick="openModal('kdml')">
+                <img src="kdml.png" alt="KdmlScript" class="script-preview-img">
             </div>
-
-            <!-- Content Area -->
-            <div class="flex-1 w-full flex flex-col justify-between h-full gap-3">
-                <div class="flex items-center justify-between flex-wrap gap-2">
-                    <h2 class="text-xl font-bold text-white tracking-wide">KdmlScript</h2>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-sky-400/15 border border-sky-400/30 text-sky-400 flex items-center gap-1">
-                            <i class="fa-solid fa-medal text-[10px]"></i> TOP 2
-                        </span>
-                        <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-400/15 border border-emerald-400/30 text-emerald-400 flex items-center gap-1">
-                            <i class="fa-solid fa-key text-[10px]"></i> NO KEY
-                        </span>
+            <div class="card-details">
+                <div class="card-header">
+                    <div class="script-name">KdmlScript</div>
+                    <div class="badge-group">
+                        <span class="badge badge-top2"><i class="fa-solid fa-medal"></i> Top 2</span>
+                        <span class="badge badge-nokey">No Key</span>
                     </div>
                 </div>
 
-                <p class="text-xs text-gray-400 line-clamp-2">
-                    Visual Gold Bomb enhancements, speed tweaks, FPS optimizations, and universal player ESP.
-                </p>
-
-                <!-- Code Input & Actions -->
-                <div class="flex flex-col sm:flex-row items-center gap-2 pt-1">
-                    <div class="w-full flex-1 bg-[#090c10] border border-gray-800 rounded-lg px-3 py-2 flex items-center">
-                        <input readonly type="text" value="https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Kdml.lua" class="mono text-xs text-emerald-400 bg-transparent w-full outline-none select-all">
-                    </div>
-                    
-                    <div class="flex items-center gap-2 w-full sm:w-auto">
-                        <button onclick="kopyala(this, 'https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Kdml.lua')" class="flex-1 sm:flex-initial px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 hover:border-gray-600 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-2 active:scale-95">
-                            <i class="fa-regular fa-copy"></i>
-                            <span>Copy</span>
-                        </button>
-                        
-                        <button onclick="openModal('kdml')" class="flex-1 sm:flex-initial px-4 py-2 bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/40 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-2 active:scale-95">
-                            <i class="fa-solid fa-sliders"></i>
-                            <span>Features</span>
-                        </button>
-                    </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="copyLoadstring('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Kdml.lua\'))()', this)">
+                        <i class="fa-regular fa-copy"></i> Get Script (Loadstring)
+                    </button>
+                    <button class="btn" onclick="openModal('kdml')">
+                        <i class="fa-solid fa-list-check"></i> Features
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- SCRIPT CARD 3: Weapon Spawner -->
-        <div class="script-card card-top3 bg-[#131720] border rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row gap-5 items-center transition-all duration-300">
-            <!-- Thumbnail Image -->
-            <div class="relative w-full sm:w-56 h-36 sm:h-32 rounded-xl overflow-hidden bg-black/40 border border-gray-800 flex-shrink-0 group">
-                <img src="spawner.jpg" onerror="this.src='https://placehold.co/400x225/1a1f2c/f85149?text=Weapon+Spawner+Preview'" alt="Weapon Spawner" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
-                <span class="absolute bottom-2 left-2 bg-black/70 backdrop-blur-md text-[10px] text-gray-300 px-2 py-0.5 rounded border border-white/10 font-mono">MM2 Weapon Hub</span>
+        <!-- Weapon Spawner -->
+        <div class="script-card top3-card">
+            <div class="img-container" onclick="openModal('spawner')">
+                <img src="spawner.jpg" alt="Weapon Spawner" class="script-preview-img">
             </div>
-
-            <!-- Content Area -->
-            <div class="flex-1 w-full flex flex-col justify-between h-full gap-3">
-                <div class="flex items-center justify-between flex-wrap gap-2">
-                    <h2 class="text-xl font-bold text-white tracking-wide">Weapon Spawner</h2>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-rose-400/15 border border-rose-400/30 text-rose-400 flex items-center gap-1">
-                            <i class="fa-solid fa-award text-[10px]"></i> TOP 3
-                        </span>
-                        <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-400/15 border border-emerald-400/30 text-emerald-400 flex items-center gap-1">
-                            <i class="fa-solid fa-key text-[10px]"></i> NO KEY
-                        </span>
+            <div class="card-details">
+                <div class="card-header">
+                    <div class="script-name">Weapon Spawner</div>
+                    <div class="badge-group">
+                        <span class="badge badge-top3"><i class="fa-solid fa-award"></i> Top 3</span>
+                        <span class="badge badge-nokey">No Key</span>
                     </div>
                 </div>
 
-                <p class="text-xs text-gray-400 line-clamp-2">
-                    Advanced MM2 Spawner allowing you to client-side equip, preview, and test Godlies, Ancient Knives, and Guns seamlessly.
-                </p>
-
-                <!-- Code Input & Actions -->
-                <div class="flex flex-col sm:flex-row items-center gap-2 pt-1">
-                    <div class="w-full flex-1 bg-[#090c10] border border-gray-800 rounded-lg px-3 py-2 flex items-center">
-                        <input readonly type="text" value="https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/WeaponSpawner.lua" class="mono text-xs text-emerald-400 bg-transparent w-full outline-none select-all">
-                    </div>
-                    
-                    <div class="flex items-center gap-2 w-full sm:w-auto">
-                        <button onclick="kopyala(this, 'https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/WeaponSpawner.lua')" class="flex-1 sm:flex-initial px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 hover:border-gray-600 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-2 active:scale-95">
-                            <i class="fa-regular fa-copy"></i>
-                            <span>Copy</span>
-                        </button>
-                        
-                        <button onclick="openModal('spawner')" class="flex-1 sm:flex-initial px-4 py-2 bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/40 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-2 active:scale-95">
-                            <i class="fa-solid fa-sliders"></i>
-                            <span>Features</span>
-                        </button>
-                    </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="copyLoadstring('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/WeaponSpawner.lua\'))()', this)">
+                        <i class="fa-regular fa-copy"></i> Get Script (Loadstring)
+                    </button>
+                    <button class="btn" onclick="openModal('spawner')">
+                        <i class="fa-solid fa-list-check"></i> Features
+                    </button>
                 </div>
             </div>
         </div>
 
-    </main>
+    </div>
 
-    <div id="featureModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-        <!-- Backdrop -->
-        <div onclick="closeModal()" class="modal-backdrop absolute inset-0"></div>
-
-        <!-- Modal Container -->
-        <div id="modalBox" class="modal-content relative w-full max-w-xl rounded-2xl overflow-hidden z-10 flex flex-col max-h-[90vh]">
-            <!-- Modal Header -->
-            <div class="p-5 border-b border-gray-800 flex items-center justify-between bg-black/20">
-                <div class="flex items-center gap-3">
-                    <div id="modalBadge" class="p-2 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-400">
-                        <i class="fa-solid fa-bolt"></i>
-                    </div>
-                    <div>
-                        <h3 id="modalTitle" class="text-xl font-bold text-white">Script Name</h3>
-                        <p id="modalCategory" class="text-xs text-gray-400 font-mono">Category / Tag</p>
-                    </div>
-                </div>
-
-                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-gray-800/80 hover:bg-gray-700 text-gray-400 hover:text-white flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+    <!-- POP-UP / MODAL OVERLAY -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Script Details</div>
+                <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
+            
+            <ul class="feature-list" id="modalFeatures"></ul>
 
-            <!-- Modal Body / Content -->
-            <div class="p-6 overflow-y-auto custom-scroll space-y-6">
-                <!-- Image Preview -->
-                <div class="relative w-full h-44 rounded-xl overflow-hidden border border-gray-800 bg-black/50">
-                    <img id="modalImg" src="" alt="Preview" class="w-full h-full object-cover">
-                </div>
-
-                <!-- Features List Grid -->
-                <div>
-                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-list-check text-sky-400"></i> Included Features
-                    </h4>
-                    <div id="modalFeatures" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                        <!-- Populated dynamically -->
-                    </div>
-                </div>
-
-                <!-- Quick Script Box -->
-                <div class="bg-black/40 border border-gray-800/80 rounded-xl p-4">
-                    <span class="text-xs font-semibold text-gray-400 mb-2 block">Direct Loadstring URL:</span>
-                    <div class="flex items-center gap-2">
-                        <input id="modalUrl" readonly type="text" class="mono text-xs text-emerald-400 bg-[#090c10] border border-gray-800 rounded-lg px-3 py-2 w-full outline-none select-all">
-                        <button id="modalCopyBtn" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center gap-2 transition-colors flex-shrink-0">
-                            <i class="fa-regular fa-copy"></i>
-                            <span>Copy</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="p-4 border-t border-gray-800/80 bg-black/30 flex justify-end">
-                <button onclick="closeModal()" class="px-5 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-xs font-semibold transition-colors">
-                    Close
-                </button>
-            </div>
+            <div style="font-size: 12px; margin-bottom: 6px; color: #8b949e;">Loadstring Code:</div>
+            <div class="loadstring-box" id="modalCode"></div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="text-center text-xs text-gray-500 py-4">
-        &copy; 2026 UguzScripts. All rights reserved.
-    </footer>
-
     <script>
-        // Data Store for Pop-up Modal Features
         const scriptData = {
             pulse: {
-                title: "PulseHub",
-                category: "Multi-Game Script Hub",
-                img: "pulse.png",
-                fallbackImg: "https://placehold.co/400x225/1a1f2c/38bdf8?text=PulseHub+Preview",
-                url: "https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/PulseHub.lua",
-                badgeClass: "p-2 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-400",
-                icon: "fa-crown",
+                title: "PulseHub Features",
                 features: [
-                    "Auto Farm & Quest Loops",
-                    "Player & Role ESP Visuals",
-                    "Teleport to Players / Locations",
-                    "Gun ESP & Item Tracers",
+                    "Auto Farm & Teleport System",
+                    "Full ESP (Role ESP, Gun ESP, Box ESP)",
+                    "Player Trolls & Free Animations",
                     "Infinite Jump & Anti-Fling",
-                    "Free Animations Pack",
-                    "Troll Fun Utilities",
-                    "Visual Customizers & FOV"
-                ]
+                    "No Key System & Fast Load"
+                ],
+                code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/PulseHub.lua'))()"
             },
             kdml: {
-                title: "KdmlScript",
-                category: "Murder Mystery & Utility Hub",
-                img: "kdml.png",
-                fallbackImg: "https://placehold.co/400x225/1a1f2c/38bdf8?text=KdmlScript+Preview",
-                url: "https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Kdml.lua",
-                badgeClass: "p-2 rounded-xl bg-sky-400/10 border border-sky-400/30 text-sky-400",
-                icon: "fa-medal",
+                title: "KdmlScript Features",
                 features: [
-                    "Visual Gold Bomb Spawn",
-                    "FPS & Performance Booster",
-                    "Fast Gun & Instant Shoot",
-                    "Murder / Sheriff ESP",
-                    "Auto Coin Farm",
-                    "Speed & Jump Modifiers",
-                    "Silent Aim & Auto Shoot",
-                    "Player Teleports"
-                ]
+                    "Visual Gold Bomb (MM2 Special)",
+                    "Show FPS & Speed Boost",
+                    "Auto Farm & Silent Aim",
+                    "Teleport to Murderer / Sheriff",
+                    "Full Visual Customization"
+                ],
+                code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Kdml.lua'))()"
             },
             spawner: {
-                title: "Weapon Spawner",
-                category: "Murder Mystery 2 Item Spawner",
-                img: "spawner.jpg",
-                fallbackImg: "https://placehold.co/400x225/1a1f2c/f85149?text=Weapon+Spawner+Preview",
-                url: "https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/WeaponSpawner.lua",
-                badgeClass: "p-2 rounded-xl bg-rose-400/10 border border-rose-400/30 text-rose-400",
-                icon: "fa-award",
+                title: "MM2 Weapon Spawner Features",
                 features: [
-                    "Equippable & Tradeable Godlies",
-                    "Ancient Knives & Guns Spawner",
-                    "Searchable 900+ Weapon Catalog",
-                    "Custom Effect Attachments",
-                    "Client-side Inventory Unlock",
-                    "One-Click Reset Knife/Gun",
-                    "Chromas & Rainbow Animations",
-                    "Lightweight & No-Lag UI"
-                ]
+                    "Spawn All Knives & Guns",
+                    "Equippable & Tradable Visual Items",
+                    "Godly, Ancient & Unique Weapon Support",
+                    "Search Weapons Panel",
+                    "Instant Inventory Refresh"
+                ],
+                code: "loadstring(game:HttpGet('https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/WeaponSpawner.lua'))()"
             }
         };
 
-        const modal = document.getElementById('featureModal');
-        const modalBox = document.getElementById('modalBox');
-
-        function openModal(key) {
-            const data = scriptData[key];
-            if (!data) return;
-
-            document.getElementById('modalTitle').innerText = data.title;
-            document.getElementById('modalCategory').innerText = data.category;
-            
-            const imgEl = document.getElementById('modalImg');
-            imgEl.src = data.img;
-            imgEl.onerror = () => { imgEl.src = data.fallbackImg; };
-
-            document.getElementById('modalUrl').value = data.url;
-
-            const badgeContainer = document.getElementById('modalBadge');
-            badgeContainer.className = data.badgeClass;
-            badgeContainer.innerHTML = `<i class="fa-solid ${data.icon}"></i>`;
-
-            // Populate features
-            const featuresContainer = document.getElementById('modalFeatures');
-            featuresContainer.innerHTML = data.features.map(feat => `
-                <div class="flex items-center gap-2.5 bg-gray-900/60 border border-gray-800/80 rounded-lg p-2.5 text-xs text-gray-200">
-                    <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
-                    <span>${feat}</span>
-                </div>
-            `).join('');
-
-            // Set copy button handler in modal
-            const copyBtn = document.getElementById('modalCopyBtn');
-            copyBtn.onclick = function() {
-                kopyala(this, data.url);
-            };
-
-            // Show Modal with Animation
-            modal.classList.remove('hidden');
-            modalBox.classList.remove('modal-exit', 'modal-exit-active');
-            modalBox.classList.add('modal-enter');
-            requestAnimationFrame(() => {
-                modalBox.classList.add('modal-enter-active');
-            });
-        }
-
-        function closeModal() {
-            modalBox.classList.remove('modal-enter', 'modal-enter-active');
-            modalBox.classList.add('modal-exit', 'modal-exit-active');
-            
+        function copyLoadstring(text, btn) {
+            navigator.clipboard.writeText(text);
+            btn.classList.add('copied');
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
             setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 200);
-        }
-
-        // Copy Function
-        function kopyala(btn, textToCopy) {
-            // Support iframe / standard execCommand fallback
-            const dummy = document.createElement("textarea");
-            document.body.appendChild(dummy);
-            dummy.value = textToCopy;
-            dummy.select();
-            document.execCommand("copy");
-            document.body.removeChild(dummy);
-
-            const originalHTML = btn.innerHTML;
-            btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-500');
-            btn.innerHTML = `<i class="fa-solid fa-check"></i> <span>Copied!</span>`;
-
-            setTimeout(() => {
-                btn.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-500');
-                btn.innerHTML = originalHTML;
+                btn.classList.remove('copied');
+                btn.innerHTML = '<i class="fa-regular fa-copy"></i> Get Script (Loadstring)';
             }, 2000);
         }
 
-        // ESC key listener to close modal
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-                closeModal();
-            }
+        function openModal(key) {
+            const data = scriptData[key];
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalCode').innerText = data.code;
+
+            const list = document.getElementById('modalFeatures');
+            list.innerHTML = data.features.map(f => `<li class="feature-item"><i class="fa-solid fa-circle-check"></i> ${f}</li>`).join('');
+
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
+        document.getElementById('modalOverlay').addEventListener('click', (e) => {
+            if(e.target === document.getElementById('modalOverlay')) closeModal();
         });
     </script>
+
 </body>
 </html>
