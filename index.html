@@ -10,110 +10,142 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background-color: #0d1117;
+            background-color: #0b0e14;
             color: #c9d1d9;
-            padding: 20px;
+            padding: 40px 20px;
             min-height: 100vh;
         }
 
         header {
-            max-width: 800px;
-            margin: 10px auto 30px auto;
+            max-width: 900px;
+            margin: 0 auto 30px auto;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: space-between;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #1f242d;
         }
 
         .site-title {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 800;
             color: #58a6ff;
-            text-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
+        /* --- KART YAPISI --- */
         .script-card {
-            background: #161b22;
-            border-radius: 14px;
-            padding: 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            background: #131720;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            border: 1px solid #212631;
+            transition: all 0.25s ease;
         }
 
-        /* --- ÖZEL TOP EFEKTLERİ --- */
+        /* TOP PARLAMALARI */
         .script-card.top1-card {
-            border: 1px solid #d29922;
-            box-shadow: 0 0 15px rgba(210, 153, 34, 0.25);
+            border-color: rgba(241, 224, 90, 0.35);
+            box-shadow: 0 4px 20px rgba(241, 224, 90, 0.05);
         }
         .script-card.top1-card:hover {
             border-color: #f1e05a;
-            box-shadow: 0 0 25px rgba(241, 224, 90, 0.45);
+            box-shadow: 0 6px 24px rgba(241, 224, 90, 0.18);
             transform: translateY(-2px);
         }
 
         .script-card.top2-card {
-            border: 1px solid #8b949e;
-            box-shadow: 0 0 15px rgba(139, 148, 158, 0.2);
+            border-color: rgba(139, 148, 158, 0.35);
+            box-shadow: 0 4px 20px rgba(139, 148, 158, 0.05);
         }
         .script-card.top2-card:hover {
             border-color: #58a6ff;
-            box-shadow: 0 0 25px rgba(88, 166, 255, 0.4);
+            box-shadow: 0 6px 24px rgba(88, 166, 255, 0.18);
             transform: translateY(-2px);
         }
 
         .script-card.top3-card {
-            border: 1px solid #da3633;
-            box-shadow: 0 0 15px rgba(218, 54, 51, 0.2);
+            border-color: rgba(248, 81, 73, 0.35);
+            box-shadow: 0 4px 20px rgba(248, 81, 73, 0.05);
         }
         .script-card.top3-card:hover {
             border-color: #f85149;
-            box-shadow: 0 0 25px rgba(248, 81, 73, 0.4);
+            box-shadow: 0 6px 24px rgba(248, 81, 73, 0.18);
             transform: translateY(-2px);
+        }
+
+        /* --- GÖRSEL ÇERÇEVESİ --- */
+        .img-container {
+            width: 200px;
+            height: 120px;
+            flex-shrink: 0;
+            background-color: #080a0f;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #21262d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .script-preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Resmi düzgün oturtur */
+            transition: transform 0.3s;
+        }
+
+        .script-card:hover .script-preview-img {
+            transform: scale(1.04);
+        }
+
+        /* --- İÇERİK ALANI --- */
+        .card-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-width: 0;
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-            gap: 10px;
         }
 
         .script-name {
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 700;
             color: #f0f6fc;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .badge-group {
             display: flex;
-            align-items: center;
             gap: 6px;
         }
 
         .badge {
             font-size: 11px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 700;
             text-transform: uppercase;
             display: inline-flex;
             align-items: center;
@@ -127,72 +159,67 @@
         }
 
         .badge-top1 {
-            background: rgba(241, 224, 90, 0.2);
+            background: rgba(241, 224, 90, 0.15);
             color: #f1e05a;
-            border: 1px solid #f1e05a;
-            font-size: 12px;
+            border: 1px solid rgba(241, 224, 90, 0.4);
         }
 
         .badge-top2 {
-            background: rgba(139, 148, 158, 0.2);
+            background: rgba(139, 148, 158, 0.15);
             color: #c9d1d9;
-            border: 1px solid #8b949e;
-            font-size: 12px;
+            border: 1px solid rgba(139, 148, 158, 0.4);
         }
 
         .badge-top3 {
-            background: rgba(218, 54, 51, 0.2);
+            background: rgba(248, 81, 73, 0.15);
             color: #f85149;
-            border: 1px solid #da3633;
-            font-size: 12px;
+            border: 1px solid rgba(248, 81, 73, 0.4);
         }
 
-        /* --- GÖRSEL STİLİ --- */
-        .script-preview-img {
-            width: 100%;
-            max-height: 250px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 1px solid #30363d;
-            margin-bottom: 12px;
-            display: block;
+        /* --- KOD KUTUSU VE BUTON --- */
+        .action-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
 
         .code-box {
-            background-color: #0d1117;
+            flex: 1;
+            background-color: #090c10;
             border: 1px solid #21262d;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 12px;
+            border-radius: 6px;
+            padding: 8px 12px;
         }
 
         textarea {
             width: 100%;
-            height: 50px;
+            height: 20px;
             background: transparent;
             border: none;
             color: #7ee787;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 13px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 12px;
             resize: none;
             outline: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .btn-copy {
             background-color: #21262d;
             color: #c9d1d9;
             border: 1px solid #30363d;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
+            gap: 6px;
+            white-space: nowrap;
         }
 
         .btn-copy:hover {
@@ -205,6 +232,18 @@
             background-color: #238636 !important;
             color: #ffffff !important;
             border-color: #2ea043 !important;
+        }
+
+        /* MOBİL UYUM */
+        @media (max-width: 650px) {
+            .script-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .img-container {
+                width: 100%;
+                height: 180px;
+            }
         }
     </style>
 </head>
@@ -220,62 +259,77 @@
 
         <!-- TOP 1: PulseHub -->
         <div class="script-card top1-card">
-            <div class="card-header">
-                <div class="script-name">PulseHub</div>
-                <div class="badge-group">
-                    <span class="badge badge-top1"><i class="fa-solid fa-crown"></i> Top 1</span>
-                    <span class="badge badge-nokey">No Key</span>
+            <div class="img-container">
+                <img src="pulse.png" alt="PulseHub" class="script-preview-img">
+            </div>
+            <div class="card-details">
+                <div class="card-header">
+                    <div class="script-name">PulseHub</div>
+                    <div class="badge-group">
+                        <span class="badge badge-top1"><i class="fa-solid fa-crown"></i> Top 1</span>
+                        <span class="badge badge-nokey">No Key</span>
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <div class="code-box">
+                        <textarea readonly>https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/PulseHub.lua</textarea>
+                    </div>
+                    <button class="btn-copy" onclick="kopyala(this)">
+                        <i class="fa-regular fa-copy"></i> Copy
+                    </button>
                 </div>
             </div>
-            
-            <img src="pulse.png" alt="PulseHub Önizleme" class="script-preview-img">
-
-            <div class="code-box">
-                <textarea readonly>https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/PulseHub.lua</textarea>
-            </div>
-            <button class="btn-copy" onclick="kopyala(this)">
-                <i class="fa-regular fa-copy"></i> Copy
-            </button>
         </div>
 
         <!-- TOP 2: KdmlScript -->
         <div class="script-card top2-card">
-            <div class="card-header">
-                <div class="script-name">KdmlScript</div>
-                <div class="badge-group">
-                    <span class="badge badge-top2"><i class="fa-solid fa-medal"></i> Top 2</span>
-                    <span class="badge badge-nokey">No Key</span>
+            <div class="img-container">
+                <img src="kdml.png" alt="KdmlScript" class="script-preview-img">
+            </div>
+            <div class="card-details">
+                <div class="card-header">
+                    <div class="script-name">KdmlScript</div>
+                    <div class="badge-group">
+                        <span class="badge badge-top2"><i class="fa-solid fa-medal"></i> Top 2</span>
+                        <span class="badge badge-nokey">No Key</span>
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <div class="code-box">
+                        <textarea readonly>https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Kdml.lua</textarea>
+                    </div>
+                    <button class="btn-copy" onclick="kopyala(this)">
+                        <i class="fa-regular fa-copy"></i> Copy
+                    </button>
                 </div>
             </div>
-
-            <img src="kdml.png" alt="KdmlScript Önizleme" class="script-preview-img">
-
-            <div class="code-box">
-                <textarea readonly>https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/Kdml.lua</textarea>
-            </div>
-            <button class="btn-copy" onclick="kopyala(this)">
-                <i class="fa-regular fa-copy"></i> Copy
-            </button>
         </div>
 
         <!-- TOP 3: Weapon Spawner -->
         <div class="script-card top3-card">
-            <div class="card-header">
-                <div class="script-name">Weapon Spawner</div>
-                <div class="badge-group">
-                    <span class="badge badge-top3"><i class="fa-solid fa-award"></i> Top 3</span>
-                    <span class="badge badge-nokey">No Key</span>
+            <div class="img-container">
+                <img src="spawner.jpg" alt="Weapon Spawner" class="script-preview-img">
+            </div>
+            <div class="card-details">
+                <div class="card-header">
+                    <div class="script-name">Weapon Spawner</div>
+                    <div class="badge-group">
+                        <span class="badge badge-top3"><i class="fa-solid fa-award"></i> Top 3</span>
+                        <span class="badge badge-nokey">No Key</span>
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <div class="code-box">
+                        <textarea readonly>https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/WeaponSpawner.lua</textarea>
+                    </div>
+                    <button class="btn-copy" onclick="kopyala(this)">
+                        <i class="fa-regular fa-copy"></i> Copy
+                    </button>
                 </div>
             </div>
-
-            <img src="spawner.jpg" alt="Weapon Spawner Önizleme" class="script-preview-img">
-
-            <div class="code-box">
-                <textarea readonly>https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/WeaponSpawner.lua</textarea>
-            </div>
-            <button class="btn-copy" onclick="kopyala(this)">
-                <i class="fa-regular fa-copy"></i> Copy
-            </button>
         </div>
 
     </div>
