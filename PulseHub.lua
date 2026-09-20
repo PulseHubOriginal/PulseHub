@@ -340,5 +340,5 @@ btn.MouseButton1Click:Connect(function()
     gui:Destroy()
 
     -- buraya kendi loadstring'ini koy
-    -- 
+    -- loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/PulseHubs.lua"))()
 end)
