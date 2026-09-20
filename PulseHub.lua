@@ -134,34 +134,17 @@ task.spawn(function()
     end
 end)
 
-local drift = RunService.RenderStepped:Connect(function(dt)
-    local t = os.clock()
-    for _, st in ipairs(stars) do
-        local p = st.frame.Position
-        local newY = p.Y.Scale + st.speed * dt
-        if newY > 1.02 then
-            newY = -0.02
-            st.frame.Position = UDim2.fromScale(rng:NextNumber(), newY)
-        else
-            st.frame.Position = UDim2.new(p.X.Scale, 0, newY, 0)
-        end
-        st.frame.BackgroundTransparency = math.clamp(
-            st.base + math.sin(t * st.twinkle + st.phase) * 0.28, 0, 1)
-    end
-    gradA.Rotation = 35 + math.sin(t * 0.08) * 12
-    gradB.Rotation = 200 + math.cos(t * 0.06) * 14
-end)
-
 -- center stack
 local center = Instance.new("Frame")
 center.AnchorPoint = Vector2.new(0.5, 0.5)
 center.Position = UDim2.fromScale(0.5, 0.5)
-center.Size = UDim2.fromScale(0.9, 0.6)
+center.Size = UDim2.fromScale(0.9, 0.7)
 center.BackgroundTransparency = 1
 center.Parent = root
 
 local layout = Instance.new("UIListLayout")
 layout.FillDirection = Enum.FillDirection.Vertical
+layout.SortOrder = Enum.SortOrder.LayoutOrder
 layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 layout.VerticalAlignment = Enum.VerticalAlignment.Center
 layout.Padding = UDim.new(0, 14)
@@ -185,21 +168,26 @@ glow.Thickness = 1.5
 glow.Transparency = 0.55
 glow.Parent = title
 
-local warn = Instance.new("TextLabel")
-warn.LayoutOrder = 2
-warn.Size = UDim2.new(0, 620, 0, 52)
-warn.BackgroundTransparency = 1
-warn.Font = Enum.Font.Gotham
-warn.TextSize = 18
-warn.TextWrapped = true
-warn.TextColor3 = Color3.fromRGB(190, 205, 230)
-warn.TextTransparency = 1
-warn.Text = "When you start the script, the game may freeze for up to 15 seconds. This is normal — do not close the game, do not rejoin. Wait until the freeze ends and the hub opens."
-warn.Parent = center
+local warnLabel = Instance.new("TextLabel")
+warnLabel.LayoutOrder = 2
+warnLabel.Size = UDim2.new(0.9, 0, 0, 72)
+warnLabel.BackgroundTransparency = 1
+warnLabel.Font = Enum.Font.Gotham
+warnLabel.TextSize = 17
+warnLabel.TextWrapped = true
+warnLabel.TextYAlignment = Enum.TextYAlignment.Top
+warnLabel.TextColor3 = Color3.fromRGB(190, 205, 230)
+warnLabel.TextTransparency = 1
+warnLabel.Text = "When you start the script, the game may freeze for up to 15 seconds. This is normal — do not close the game, do not rejoin. Wait until the freeze ends and the hub opens."
+warnLabel.Parent = center
+
+local warnLimit = Instance.new("UISizeConstraint")
+warnLimit.MaxSize = Vector2.new(620, 72)
+warnLimit.Parent = warnLabel
 
 local subtle = Instance.new("TextLabel")
 subtle.LayoutOrder = 3
-subtle.Size = UDim2.new(0, 620, 0, 22)
+subtle.Size = UDim2.new(1, 0, 0, 22)
 subtle.BackgroundTransparency = 1
 subtle.Font = Enum.Font.GothamMedium
 subtle.TextSize = 13
@@ -208,32 +196,58 @@ subtle.TextTransparency = 1
 subtle.Text = "loading assets · initializing modules · please wait"
 subtle.Parent = center
 
+local spacer = Instance.new("Frame")
+spacer.LayoutOrder = 4
+spacer.Size = UDim2.fromOffset(10, 26)
+spacer.BackgroundTransparency = 1
+spacer.Parent = center
+
+-- button (fixed holder keeps the layout still while the button animates)
+local holder = Instance.new("Frame")
+holder.LayoutOrder = 5
+holder.Size = UDim2.fromOffset(330, 66)
+holder.BackgroundTransparency = 1
+holder.Parent = center
+
+local BTN_SIZE = UDim2.fromOffset(300, 54)
+
 local btn = Instance.new("TextButton")
-btn.LayoutOrder = 4
-btn.Size = UDim2.fromOffset(300, 54)
-btn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-btn.BackgroundTransparency = 0.9
+btn.AnchorPoint = Vector2.new(0.5, 0.5)
+btn.Position = UDim2.fromScale(0.5, 0.5)
+btn.Size = BTN_SIZE
+btn.BackgroundColor3 = Color3.fromRGB(70, 75, 95)
+btn.BackgroundTransparency = 1
+btn.BorderSizePixel = 0
 btn.AutoButtonColor = false
 btn.Active = false
 btn.Font = Enum.Font.GothamBold
 btn.TextSize = 18
-btn.TextColor3 = Color3.fromRGB(215, 225, 245)
+btn.TextColor3 = Color3.fromRGB(200, 210, 230)
 btn.TextTransparency = 1
 btn.Text = "please read it  ·  10"
-btn.Parent = center
+btn.Parent = holder
 
 local btnCorner = Instance.new("UICorner")
-btnCorner.CornerRadius = UDim.new(0, 10)
+btnCorner.CornerRadius = UDim.new(0, 16)
 btnCorner.Parent = btn
 
+local btnGrad = Instance.new("UIGradient")
+btnGrad.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 130, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(140, 60, 235)),
+})
+btnGrad.Rotation = 20
+btnGrad.Parent = btn
+
 local btnStroke = Instance.new("UIStroke")
+btnStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 btnStroke.Color = Color3.fromRGB(120, 150, 210)
-btnStroke.Thickness = 1
-btnStroke.Transparency = 0.5
+btnStroke.Thickness = 1.5
+btnStroke.Transparency = 1
 btnStroke.Parent = btn
 
 local bar = Instance.new("Frame")
-bar.LayoutOrder = 5
+bar.LayoutOrder = 6
 bar.Size = UDim2.fromOffset(300, 3)
 bar.BackgroundColor3 = Color3.fromRGB(35, 45, 70)
 bar.BorderSizePixel = 0
@@ -255,14 +269,38 @@ local fillCorner = Instance.new("UICorner")
 fillCorner.CornerRadius = UDim.new(1, 0)
 fillCorner.Parent = fill
 
+-- background drift
+local fading = false
+
+local drift = RunService.RenderStepped:Connect(function(dt)
+    local t = os.clock()
+    gradA.Rotation = 35 + math.sin(t * 0.08) * 12
+    gradB.Rotation = 200 + math.cos(t * 0.06) * 14
+    btnGrad.Rotation = 20 + math.sin(t * 0.9) * 25
+    if fading then return end
+    for _, st in ipairs(stars) do
+        local p = st.frame.Position
+        local newY = p.Y.Scale + st.speed * dt
+        if newY > 1.02 then
+            newY = -0.02
+            st.frame.Position = UDim2.fromScale(rng:NextNumber(), newY)
+        else
+            st.frame.Position = UDim2.new(p.X.Scale, 0, newY, 0)
+        end
+        st.frame.BackgroundTransparency = math.clamp(
+            st.base + math.sin(t * st.twinkle + st.phase) * 0.28, 0, 1)
+    end
+end)
+
 -- fade in
 local fadeInfo = TweenInfo.new(0.7, Enum.EasingStyle.Quart, Enum.EasingDirection.Out)
 TweenService:Create(title, fadeInfo, {TextTransparency = 0}):Play()
 task.wait(0.15)
-TweenService:Create(warn, fadeInfo, {TextTransparency = 0}):Play()
+TweenService:Create(warnLabel, fadeInfo, {TextTransparency = 0}):Play()
 TweenService:Create(subtle, fadeInfo, {TextTransparency = 0.15}):Play()
 task.wait(0.15)
-TweenService:Create(btn, fadeInfo, {TextTransparency = 0, BackgroundTransparency = 0.88}):Play()
+TweenService:Create(btn, fadeInfo, {TextTransparency = 0, BackgroundTransparency = 0}):Play()
+TweenService:Create(btnStroke, fadeInfo, {Transparency = 0.6}):Play()
 TweenService:Create(bar, fadeInfo, {BackgroundTransparency = 0.4}):Play()
 TweenService:Create(fill, fadeInfo, {BackgroundTransparency = 0}):Play()
 
@@ -288,10 +326,12 @@ task.spawn(function()
     ready = true
     btn.Active = true
     btn.Text = "Start the script"
-    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    TweenService:Create(btn, TweenInfo.new(0.35), {BackgroundTransparency = 0.78}):Play()
-    TweenService:Create(btnStroke, TweenInfo.new(0.35), {
-        Color = Color3.fromRGB(60, 150, 255), Transparency = 0.1
+    TweenService:Create(btn, TweenInfo.new(0.4), {
+        BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+        TextColor3 = Color3.fromRGB(255, 255, 255),
+    }):Play()
+    TweenService:Create(btnStroke, TweenInfo.new(0.4), {
+        Color = Color3.fromRGB(140, 200, 255), Transparency = 0.1
     }):Play()
     TweenService:Create(subtle, TweenInfo.new(0.35), {TextTransparency = 1}):Play()
 
@@ -300,29 +340,44 @@ task.spawn(function()
     })
     pop:Play()
     pop.Completed:Wait()
-    TweenService:Create(btn, TweenInfo.new(0.12), {Size = UDim2.fromOffset(300, 54)}):Play()
+    TweenService:Create(btn, TweenInfo.new(0.12), {Size = BTN_SIZE}):Play()
 end)
+
+local hoverInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 
 btn.MouseEnter:Connect(function()
     if not ready then return end
-    TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundTransparency = 0.68}):Play()
+    TweenService:Create(btn, hoverInfo, {Size = UDim2.fromOffset(310, 57)}):Play()
+    TweenService:Create(btnStroke, hoverInfo, {Thickness = 2.5, Transparency = 0}):Play()
 end)
 
 btn.MouseLeave:Connect(function()
     if not ready then return end
-    TweenService:Create(btn, TweenInfo.new(0.15), {BackgroundTransparency = 0.78}):Play()
+    TweenService:Create(btn, hoverInfo, {Size = BTN_SIZE}):Play()
+    TweenService:Create(btnStroke, hoverInfo, {Thickness = 1.5, Transparency = 0.1}):Play()
+end)
+
+btn.MouseButton1Down:Connect(function()
+    if not ready then return end
+    TweenService:Create(btn, TweenInfo.new(0.08), {Size = UDim2.fromOffset(292, 51)}):Play()
+end)
+
+btn.MouseButton1Up:Connect(function()
+    if not ready then return end
+    TweenService:Create(btn, TweenInfo.new(0.1), {Size = UDim2.fromOffset(310, 57)}):Play()
 end)
 
 local fired = false
 btn.MouseButton1Click:Connect(function()
     if not ready or fired then return end
     fired = true
+    fading = true
     btn.Active = false
     btn.Text = "loading"
 
     local out = TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.In)
     TweenService:Create(title, out, {TextTransparency = 1}):Play()
-    TweenService:Create(warn, out, {TextTransparency = 1}):Play()
+    TweenService:Create(warnLabel, out, {TextTransparency = 1}):Play()
     TweenService:Create(btn, out, {TextTransparency = 1, BackgroundTransparency = 1}):Play()
     TweenService:Create(btnStroke, out, {Transparency = 1}):Play()
     TweenService:Create(bar, out, {BackgroundTransparency = 1}):Play()
@@ -339,6 +394,12 @@ btn.MouseButton1Click:Connect(function()
     drift:Disconnect()
     gui:Destroy()
 
-    -- buraya kendi loadstring'ini koy
-    -- loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/PulseHubs.lua"))()
+    task.spawn(function()
+        local ok, err = pcall(function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseHubOriginal/PulseHub/refs/heads/main/PulseHubs.lua"))()
+        end)
+        if not ok then
+            warn("PulseHub yüklenemedi: " .. tostring(err))
+        end
+    end)
 end)
